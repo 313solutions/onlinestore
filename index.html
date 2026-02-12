@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONYX Store - Premium Goods</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-display { font-family: 'Playfair Display', serif; }
+        html { scroll-behavior: smooth; }
+        .glass { background: rgba(24, 24, 27, 0.95); backdrop-filter: blur(8px); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #18181b; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
+
+        input, select, textarea { outline: none; transition: all 0.3s; }
+        input:focus, select:focus, textarea:focus { border-color: #d97706; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1); }
+        
+        .product-card:hover .add-btn { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-gray-200 antialiased">
+
+    <nav class="fixed w-full z-40 top-0 left-0 glass shadow-sm border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 hover:opacity-80 transition">
+                <div class="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center text-white text-lg shadow-lg shadow-amber-900/20">
+                    <i class="fa-solid fa-cube"></i>
+                </div>
+                <div class="leading-tight">
+                    <h1 class="text-2xl font-display font-bold text-white tracking-tight">ONYX</h1>
+                    <span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest ml-0.5">Premium Store</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-400">
+                <a href="#home" class="hover:text-amber-500 transition">Home</a>
+                <a href="#shop" class="hover:text-amber-500 transition">Produse</a>
+                <a href="#digital" class="hover:text-amber-500 transition">Digitale</a>
+                
+                <button onclick="toggleCartModal()" class="relative group">
+                    <div class="bg-zinc-900 text-white w-10 h-10 rounded-full flex items-center justify-center border border-zinc-700 hover:border-amber-500 transition shadow-lg">
+                        <i class="fa-solid fa-cart-shopping group-hover:text-amber-500 transition"></i>
+                    </div>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full opacity-0 transition-opacity duration-300">0</span>
+                </button>
+            </div>
+
+            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-gray-300 p-2"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <header id="home" class="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1920&auto=format&fit=crop" 
+                 class="w-full h-full object-cover object-center opacity-40"
+                 alt="Premium Background">
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col items-center text-center">
+            <div class="inline-flex items-center gap-2 bg-amber-500/10 px-4 py-2 rounded-full mb-8 border border-amber-500/20 animate-fade-in-up">
+                <i class="fa-solid fa-bolt text-amber-500 text-sm"></i>
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">Livrare Rapidă în 24h</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight max-w-4xl">
+                Exclusivitate <span class="text-amber-600">Digitală & Fizică</span>.
+            </h1>
+            
+            <p class="text-lg text-gray-400 mb-10 font-medium max-w-2xl mx-auto leading-relaxed">
+                Descoperă colecția noastră de accesorii premium și produse digitale. Livrare prin curier rapid pentru produsele fizice și acces instant pentru cele digitale.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4">
+                <a href="#shop" class="bg-amber-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-amber-700 transition shadow-lg hover:shadow-amber-500/20 flex items-center gap-2">
+                    Start Shopping <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <div class="flex items-center gap-4 px-6 py-4 rounded-xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+                    <div class="flex -space-x-3">
+                        <img class="w-8 h-8 rounded-full border-2 border-zinc-900" src="https://i.pravatar.cc/100?img=1" alt="">
+                        <img class="w-8 h-8 rounded-full border-2 border-zinc-900" src="https://i.pravatar.cc/100?img=2" alt="">
+                        <img class="w-8 h-8 rounded-full border-2 border-zinc-900" src="https://i.pravatar.cc/100?img=3" alt="">
+                    </div>
+                    <span class="text-sm font-semibold text-gray-300">5k+ Clienți fericiți</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="shop" class="py-24 bg-zinc-950 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <span class="text-amber-600 font-bold tracking-wider uppercase text-sm">Colecția Nouă</span>
+                    <h2 class="text-4xl font-display font-bold text-white mt-2">Produse Disponibile</h2>
+                </div>
+                <div class="flex gap-2 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
+                    <button class="px-4 py-2 rounded-md bg-zinc-800 text-white text-sm font-medium shadow-sm">Toate</button>
+                    <button class="px-4 py-2 rounded-md text-gray-400 hover:text-white text-sm font-medium transition">Fizice</button>
+                    <button class="px-4 py-2 rounded-md text-gray-400 hover:text-white text-sm font-medium transition">Digitale</button>
+                </div>
+            </div>
+            
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-zinc-900 border-y border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-amber-500 text-xl"><i class="fa-solid fa-truck-fast"></i></div>
+                <div>
+                    <h4 class="font-bold text-white">Livrare Rapidă</h4>
+                    <p class="text-xs text-gray-400">Curierat Rapid (24-48h)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-amber-500 text-xl"><i class="fa-solid fa-lock"></i></div>
+                <div>
+                    <h4 class="font-bold text-white">Plată Securizată</h4>
+                    <p class="text-xs text-gray-400">Card Online / Ramburs</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-amber-500 text-xl"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+                <div>
+                    <h4 class="font-bold text-white">Produse Digitale</h4>
+                    <p class="text-xs text-gray-400">Livrare instant pe email</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 border-b border-zinc-800 pb-12 mb-12">
+                <div class="col-span-1">
+                    <h2 class="text-2xl font-bold text-white font-display mb-6">ONYX</h2>
+                    <p class="text-sm mb-6 leading-relaxed">Magazinul tău premium pentru gadget-uri smart, accesorii și conținut digital exclusiv.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-6">Suport Clienti</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-amber-500 transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition">Politica de Retur</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition">Termeni și Condiții</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-6">Metode de Plată</h3>
+                    <div class="flex gap-2 text-2xl">
+                        <i class="fa-brands fa-cc-visa text-gray-300"></i>
+                        <i class="fa-brands fa-cc-mastercard text-gray-300"></i>
+                        <i class="fa-brands fa-cc-paypal text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-xs"><p>&copy; 2026 ONYX Store. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <div id="cartModal" class="hidden fixed inset-0 z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="toggleCartModal()"></div>
+        
+        <div class="fixed inset-y-0 right-0 z-10 w-full md:w-[500px] bg-zinc-900 shadow-2xl transform transition-transform border-l border-zinc-800 flex flex-col h-full">
+            
+            <div class="px-6 py-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-900">
+                <h2 class="text-xl font-display font-bold text-white">Coșul Tău</h2>
+                <button onclick="toggleCartModal()" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <div id="emptyCartMsg" class="text-center py-12 hidden">
+                    <i class="fa-solid fa-basket-shopping text-4xl text-zinc-700 mb-4"></i>
+                    <p class="text-gray-500">Coșul tău este gol.</p>
+                </div>
+                <div id="cartList" class="space-y-4"></div>
+            </div>
+
+            <div class="border-t border-zinc-800 bg-zinc-900 p-6">
+                
+                <div class="flex justify-between items-center mb-6 text-lg font-bold text-white">
+                    <span>Total de plată:</span>
+                    <span id="cartTotal" class="text-amber-500">0 RON</span>
+                </div>
+
+                <button id="btnInitCheckout" onclick="showCheckoutForm()" class="w-full bg-amber-600 text-white py-4 rounded-xl font-bold hover:bg-amber-700 transition shadow-lg mb-2">
+                    Continuă spre Plată
+                </button>
+
+                <div id="checkoutForm" class="hidden animate-fade-in space-y-4 mt-4 border-t border-zinc-800 pt-4">
+                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Detalii Livrare & Plată</h3>
+                    
+                    <div class="space-y-3">
+                        <input type="text" placeholder="Nume Complet" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
+                        <input type="text" placeholder="Adresă Livrare (Str, Nr, Oraș)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
+                        <input type="email" placeholder="Email (pentru confirmare)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
+                    </div>
+
+                    <div class="bg-zinc-800 p-4 rounded-lg border border-zinc-700 relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-sm font-bold text-gray-300"><i class="fa-solid fa-lock mr-2 text-green-500"></i>Plată Card Securizată</span>
+                            <div class="flex gap-2 text-gray-400"><i class="fa-brands fa-cc-visa"></i> <i class="fa-brands fa-cc-mastercard"></i></div>
+                        </div>
+                        <input type="text" placeholder="0000 0000 0000 0000" class="w-full bg-zinc-900 border border-zinc-700 rounded-md p-2 mb-3 text-white font-mono text-sm">
+                        <div class="flex gap-3">
+                            <input type="text" placeholder="MM/YY" class="w-1/2 bg-zinc-900 border border-zinc-700 rounded-md p-2 text-white font-mono text-sm">
+                            <input type="text" placeholder="CVC" class="w-1/2 bg-zinc-900 border border-zinc-700 rounded-md p-2 text-white font-mono text-sm">
+                        </div>
+                    </div>
+
+                    <button onclick="processPayment()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold transition shadow-lg flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-lock"></i> Plătește <span id="payAmount"></span>
+                    </button>
+                    <p class="text-[10px] text-gray-500 text-center mt-2">*Aceasta este o simulare. Nu introduceți date reale de card.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 bg-zinc-900 border border-amber-500/50 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-24 transition-transform duration-300 z-50 flex items-center gap-4">
+        <div class="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center"><i class="fa-solid fa-check"></i></div>
+        <div>
+            <h4 class="font-bold text-sm">Adăugat în coș</h4>
+            <p id="toastMsg" class="text-xs text-gray-400">Produsul a fost adăugat cu succes.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA: Products Database ---
+        const products = [
+            {
+                id: 1,
+                name: "ONYX Smart Watch Pro",
+                price: 450,
+                type: "physical",
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop",
+                desc: "Monitorizare sănătate, GPS, baterie 7 zile. Livrare curier."
+            },
+            {
+                id: 2,
+                name: "Sony Wireless Noise Cancelling",
+                price: 890,
+                type: "physical",
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop",
+                desc: "Sunet premium, anulare zgomot activă. Livrare curier."
+            },
+            {
+                id: 3,
+                name: "Curs Foto Masterclass (E-book)",
+                price: 120,
+                type: "digital",
+                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop",
+                desc: "Format PDF + Video. Livrare instant pe email."
+            },
+            {
+                id: 4,
+                name: "Luxury Leather Wallet",
+                price: 250,
+                type: "physical",
+                image: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600&auto=format&fit=crop",
+                desc: "Piele naturală, lucrat manual. Cutie cadou inclusă."
+            },
+            {
+                id: 5,
+                name: "Preset-uri Lightroom (Pack)",
+                price: 80,
+                type: "digital",
+                image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
+                desc: "15 filtre profesionale pentru editare foto."
+            },
+            {
+                id: 6,
+                name: "Tastatură Mecanică Custom",
+                price: 650,
+                type: "physical",
+                image: "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=600&auto=format&fit=crop",
+                desc: "Switch-uri roșii, iluminare RGB. Livrare curier."
+            }
+        ];
+
+        // --- APP STATE ---
+        let cart = [];
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+        });
+
+        // --- RENDER FUNCTIONS ---
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-amber-600 transition-all duration-300 relative">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="${product.image}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500" alt="${product.name}">
+                        <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide text-white border border-white/10">
+                            ${product.type === 'physical' ? '<i class="fa-solid fa-box mr-1"></i> Fizic' : '<i class="fa-solid fa-download mr-1 text-amber-500"></i> Digital'}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-white leading-tight">${product.name}</h3>
+                            <span class="text-amber-500 font-bold">${product.price} RON</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">${product.desc}</p>
+                        
+                        <button onclick="addToCart(${product.id})" class="w-full bg-white text-black py-3 rounded-lg font-bold hover:bg-amber-500 hover:text-white transition flex items-center justify-center gap-2">
+                            Add to Cart <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCartUI();
+            showToast(`${product.name}`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Update Badge
+            const badge = document.getElementById('cartCount');
+            badge.innerText = cart.length;
+            badge.style.opacity = cart.length > 0 ? '1' : '0';
+
+            // Update List
+            const list = document.getElementById('cartList');
+            const emptyMsg = document.getElementById('emptyCartMsg');
+            const totalEl = document.getElementById('cartTotal');
+            const payBtnAmount = document.getElementById('payAmount');
+
+            if (cart.length === 0) {
+                list.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+            } else {
+                emptyMsg.classList.add('hidden');
+                list.innerHTML = cart.map((item, index) => `
+                    <div class="flex gap-4 bg-zinc-800/50 p-3 rounded-xl border border-zinc-700 items-center">
+                        <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-bold text-white">${item.name}</h4>
+                            <p class="text-xs text-gray-400 capitalize">${item.type}</p>
+                            <span class="text-amber-500 text-sm font-bold">${item.price} RON</span>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-red-500 transition p-2">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            // Calculate Total
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            totalEl.innerText = `${total} RON`;
+            if(payBtnAmount) payBtnAmount.innerText = `${total} RON`;
+        }
+
+        // --- UI TRIGGERS ---
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+            document.body.style.overflow = modal.classList.contains('hidden') ? 'auto' : 'hidden';
+            
+            // Reset checkout view if closed
+            if(modal.classList.contains('hidden')) {
+                document.getElementById('checkoutForm').classList.add('hidden');
+                document.getElementById('btnInitCheckout').classList.remove('hidden');
+            }
+        }
+
+        function showCheckoutForm() {
+            if(cart.length === 0) return alert("Coșul este gol!");
+            document.getElementById('btnInitCheckout').classList.add('hidden');
+            document.getElementById('checkoutForm').classList.remove('hidden');
+        }
+
+        function processPayment() {
+            const btn = document.querySelector('#checkoutForm button');
+            const originalText = btn.innerHTML;
+            
+            // 1. Loading State
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Procesare...';
+            btn.disabled = true;
+
+            // 2. Simulate Delay
+            setTimeout(() => {
+                // 3. Success
+                cart = [];
+                updateCartUI();
+                toggleCartModal();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                alert("Plată acceptată! 🎉\nMulțumim pentru comandă. Vei primi confirmarea pe email.");
+            }, 2000);
+        }
+
+        function showToast(productName) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = `${productName}`;
+            toast.classList.remove('translate-y-24'); // Show
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-24'); // Hide
+            }, 3000);
+        }
+
+        function toggleMobileMenu() {
+            // Simple alert for mobile menu in this demo version
+            alert("Meniul mobil ar conține aceleași linkuri ca header-ul.");
+        }
+    </script>
+</body>
+</html>
