@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONYX Store - Premium Goods</title>
+    <title>ONYX Store - Premium Experience</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,364 +13,227 @@
         body { font-family: 'Inter', sans-serif; }
         h1, h2, h3, .font-display { font-family: 'Playfair Display', serif; }
         html { scroll-behavior: smooth; }
-        .glass { background: rgba(24, 24, 27, 0.95); backdrop-filter: blur(8px); }
+        .glass { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #18181b; }
-        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
-
         input, select, textarea { outline: none; transition: all 0.3s; }
-        input:focus, select:focus, textarea:focus { border-color: #d97706; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1); }
+        input:focus { border-color: #d97706; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1); }
         
-        /* Animations */
-        .slide-up-enter { transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        .slide-up-active { transform: translateY(0); }
-        
-        .product-card:hover .add-btn { opacity: 1; transform: translateY(0); }
+        .slide-up { transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+        .slide-up.active { transform: translateY(0); }
     </style>
 </head>
 <body class="bg-zinc-950 text-gray-200 antialiased overflow-x-hidden">
 
-    <nav class="fixed w-full z-40 top-0 left-0 glass shadow-sm border-b border-zinc-800">
+    <nav class="fixed w-full z-50 top-0 left-0 glass border-b border-zinc-800">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="#" onclick="closeDigitalHub()" class="flex items-center gap-3 hover:opacity-80 transition">
-                <div class="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center text-white text-lg shadow-lg shadow-amber-900/20">
-                    <i class="fa-solid fa-cube"></i>
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center text-white text-xl shadow-lg">
+                    <i class="fa-solid fa-gem"></i>
                 </div>
                 <div class="leading-tight">
                     <h1 class="text-2xl font-display font-bold text-white tracking-tight">ONYX</h1>
-                    <span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest ml-0.5">Physical Store</span>
+                    <span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest ml-0.5">Premium Store</span>
                 </div>
             </a>
             
             <div class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-400">
-                <a href="#home" onclick="closeDigitalHub()" class="hover:text-amber-500 transition">Acasă</a>
-                <a href="#shop" onclick="closeDigitalHub()" class="hover:text-amber-500 transition">Magazin Fizic</a>
+                <a href="#acasa" class="hover:text-amber-500 transition">Acasă</a>
+                <a href="#shop" class="hover:text-amber-500 transition">Colecție</a>
+                <button onclick="openDigitalHub()" class="text-amber-500 hover:text-amber-400 transition font-bold border-b border-amber-500/30">Digitale</button>
+                <a href="#contact" class="hover:text-amber-500 transition">Contact</a>
                 
-                <button onclick="openDigitalHub()" class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2 border border-cyan-900/50 px-3 py-1 rounded-full bg-cyan-950/20">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Produse Digitale
-                </button>
-                
-                <button onclick="toggleCartModal()" class="relative group ml-4">
-                    <div class="bg-zinc-900 text-white w-10 h-10 rounded-full flex items-center justify-center border border-zinc-700 hover:border-amber-500 transition shadow-lg">
-                        <i class="fa-solid fa-cart-shopping group-hover:text-amber-500 transition"></i>
-                    </div>
-                    <span id="cartCount" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full opacity-0 transition-opacity duration-300">0</span>
+                <button onclick="toggleCartModal()" class="relative bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 hover:border-amber-500 transition">
+                    <i class="fa-solid fa-bag-shopping text-white"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full opacity-0">0</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <div id="mainPageContent">
-        <header id="home" class="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1920&auto=format&fit=crop" 
-                     class="w-full h-full object-cover object-center opacity-30" alt="Store Background">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent"></div>
+    <header id="acasa" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1491336477066-31156b5e4f35?q=80&w=1920&auto=format&fit=crop" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full text-center">
+            <span class="text-amber-500 font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Crafted for Excellence</span>
+            <h1 class="text-6xl md:text-8xl font-display font-bold text-white mb-8">Stilul tău,<br><span class="text-amber-600">semnătura noastră</span>.</h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-10">Produse exclusiviste livrate prin curier rapid și resurse digitale pentru o experiență completă.</p>
+            <a href="#shop" class="inline-flex items-center gap-3 bg-amber-600 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-amber-700 transition shadow-2xl">
+                Descoperă Magazinul <i class="fa-solid fa-chevron-down text-sm"></i>
+            </a>
+        </div>
+    </header>
+
+    <section id="shop" class="py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">Colecția Premium</h2>
+                <p class="text-gray-500">Livrare prin curier rapid oriunde în țară.</p>
             </div>
             
-            <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col items-center text-center">
-                <div class="inline-flex items-center gap-2 bg-amber-500/10 px-4 py-2 rounded-full mb-8 border border-amber-500/20">
-                    <i class="fa-solid fa-truck-fast text-amber-500 text-sm"></i>
-                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">Livrare prin Curier în 24h</span>
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 </div>
-                <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight max-w-4xl">
-                    Produse Fizice <br><span class="text-amber-600">Premium & Exclusive</span>.
-                </h1>
-                <p class="text-lg text-gray-400 mb-10 font-medium max-w-2xl mx-auto leading-relaxed">
-                    Accesorii, gadget-uri și piese de colecție. Comandă acum și primești coletul direct la ușa ta.
-                </p>
-                <a href="#shop" class="bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-white transition shadow-lg flex items-center gap-2">
-                    Vezi Colecția <i class="fa-solid fa-arrow-down"></i>
-                </a>
-            </div>
-        </header>
+        </div>
+    </section>
 
-        <section id="shop" class="py-24 bg-zinc-950 relative">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex items-end justify-between mb-12">
-                    <div>
-                        <span class="text-amber-600 font-bold tracking-wider uppercase text-sm">Pentru Tine</span>
-                        <h2 class="text-4xl font-display font-bold text-white mt-2">Magazin Fizic</h2>
+    <footer id="contact" class="bg-black text-gray-400 pt-24 pb-12 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 border-b border-zinc-900 pb-16 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <h2 class="text-3xl font-bold text-white font-display mb-6">ONYX</h2>
+                    <p class="text-sm mb-8 leading-relaxed">Destinația ta pentru o transformare spectaculoasă și produse de cea mai înaltă calitate.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-zinc-900 hover:bg-amber-600 text-white rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-zinc-900 hover:bg-amber-600 text-white rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-zinc-900 hover:bg-amber-600 text-white rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-tiktok"></i></a>
                     </div>
                 </div>
-                <div id="physicalGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    </div>
-            </div>
-        </section>
-    </div>
-
-    <div id="digitalHub" class="fixed inset-0 z-[45] bg-slate-950 slide-up-enter overflow-y-auto">
-        <div class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-cyan-900/30 px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-cyan-600 rounded-lg flex items-center justify-center text-white text-lg shadow-[0_0_15px_rgba(8,145,178,0.5)]">
-                    <i class="fa-solid fa-microchip"></i>
-                </div>
+                
                 <div>
-                    <h2 class="text-xl font-display font-bold text-white">ONYX <span class="text-cyan-400">Digital</span></h2>
-                    <span class="text-[10px] text-cyan-500 font-bold uppercase tracking-widest">Instant Download</span>
+                    <h3 class="text-white font-bold text-lg mb-6">Locație & Contact</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex gap-3"><i class="fa-solid fa-location-dot text-amber-500"></i> Strada Luxului 10, București</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-phone text-amber-500"></i> 0723 000 000</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-envelope text-amber-500"></i> contact@onyx.ro</li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h3 class="text-white font-bold text-lg mb-6">Informații Livrare</h3>
+                    <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i class="fa-solid fa-truck text-amber-500 text-2xl"></i>
+                            <p class="text-sm text-gray-300">Produsele fizice se livrează exclusiv prin **Curier Rapid** în 24-48 ore.</p>
+                        </div>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Transport Gratuit la comenzi peste 300 RON</p>
+                    </div>
                 </div>
             </div>
-            <button onclick="closeDigitalHub()" class="group flex items-center gap-2 text-gray-400 hover:text-white transition px-4 py-2 rounded-lg hover:bg-white/5">
-                <span class="text-sm font-medium">Înapoi la Fizic</span>
-                <i class="fa-solid fa-xmark text-xl group-hover:rotate-90 transition-transform"></i>
-            </button>
+            <div class="text-center text-xs text-gray-600"><p>&copy; 2026 ONYX Premium Store. Toate drepturile rezervate.</p></div>
         </div>
+    </footer>
 
-        <div class="relative py-20 px-6 border-b border-cyan-900/20 overflow-hidden">
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-            <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500 rounded-full mix-blend-overlay filter blur-[100px] opacity-10"></div>
-            
-            <div class="max-w-7xl mx-auto relative z-10 text-center">
-                <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-4">Resurse <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Digitale</span></h1>
-                <p class="text-cyan-100/70 max-w-xl mx-auto">E-book-uri, Preset-uri, Cursuri și Software. Livrare instantanee pe email după confirmarea plății.</p>
-            </div>
+    <div id="digitalHub" class="fixed inset-0 z-[60] bg-zinc-950 slide-up overflow-y-auto">
+        <div class="sticky top-0 z-10 bg-zinc-950 border-b border-zinc-800 px-6 h-20 flex justify-between items-center">
+            <h2 class="text-2xl font-display font-bold text-white">Digital <span class="text-amber-500">Resources</span></h2>
+            <button onclick="closeDigitalHub()" class="bg-zinc-900 text-white w-10 h-10 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
         </div>
-
-        <div class="max-w-7xl mx-auto px-6 py-16">
+        <div class="max-w-7xl mx-auto px-6 py-20">
             <div id="digitalGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 </div>
         </div>
-        
-        <div class="text-center py-10 text-gray-600 text-sm border-t border-gray-800 bg-slate-950">
-            <p>Platformă Securizată ONYX Digital. Toate fișierele sunt verificate.</p>
-        </div>
     </div>
 
-
-    <div id="cartModal" class="hidden fixed inset-0 z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="toggleCartModal()"></div>
-        <div class="fixed inset-y-0 right-0 z-10 w-full md:w-[500px] bg-zinc-900 shadow-2xl transform transition-transform border-l border-zinc-800 flex flex-col h-full">
-            <div class="px-6 py-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-900">
-                <h2 class="text-xl font-display font-bold text-white">Coșul Tău</h2>
-                <button onclick="toggleCartModal()" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <div id="cartModal" class="hidden fixed inset-0 z-[70]">
+        <div class="fixed inset-0 bg-black/90 backdrop-blur-sm" onclick="toggleCartModal()"></div>
+        <div class="fixed inset-y-0 right-0 w-full md:w-[450px] bg-zinc-900 shadow-2xl flex flex-col p-8 border-l border-zinc-800">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-display font-bold text-white">Coșul tău</h3>
+                <button onclick="toggleCartModal()" class="text-gray-500"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
-                <div id="emptyCartMsg" class="text-center py-12 hidden">
-                    <i class="fa-solid fa-basket-shopping text-4xl text-zinc-700 mb-4"></i>
-                    <p class="text-gray-500">Coșul tău este gol.</p>
+            <div id="cartList" class="flex-1 overflow-y-auto space-y-6"></div>
+            <div class="mt-8 pt-8 border-t border-zinc-800">
+                <div class="flex justify-between text-xl font-bold text-white mb-6">
+                    <span>Total:</span><span id="cartTotal">0 RON</span>
                 </div>
-                <div id="cartList" class="space-y-4"></div>
+                <div id="checkoutForm" class="hidden space-y-4 mb-6">
+                    <input type="text" id="custName" placeholder="Nume Complet" class="w-full bg-zinc-800 p-3 rounded-lg border border-zinc-700 text-white">
+                    <input type="text" id="custAddress" placeholder="Adresă Livrare (Doar pt produse fizice)" class="w-full bg-zinc-800 p-3 rounded-lg border border-zinc-700 text-white">
+                    <input type="email" id="custEmail" placeholder="Email (pt confirmare)" class="w-full bg-zinc-800 p-3 rounded-lg border border-zinc-700 text-white">
+                </div>
+                <button onclick="handleCheckout()" id="checkoutBtn" class="w-full bg-amber-600 text-white py-4 rounded-xl font-bold hover:bg-amber-700 transition">Finalizează Comanda</button>
             </div>
-            <div class="border-t border-zinc-800 bg-zinc-900 p-6">
-                <div class="flex justify-between items-center mb-6 text-lg font-bold text-white">
-                    <span>Total de plată:</span>
-                    <span id="cartTotal" class="text-amber-500">0 RON</span>
-                </div>
-                <button id="btnInitCheckout" onclick="showCheckoutForm()" class="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-gray-200 transition shadow-lg mb-2">
-                    Continuă spre Plată
-                </button>
-                <div id="checkoutForm" class="hidden animate-fade-in space-y-4 mt-4 border-t border-zinc-800 pt-4">
-                    <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg mb-4 hidden" id="mixedCartWarning">
-                        <p class="text-xs text-amber-200"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Ai produse fizice în coș. Este necesară adresa de livrare.</p>
-                    </div>
-                    <div class="space-y-3">
-                        <input type="email" id="emailInput" placeholder="Email (pentru livrare digitală/confirmare)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
-                        <div id="shippingInputs">
-                            <input type="text" placeholder="Nume Complet" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500 mb-3">
-                            <input type="text" placeholder="Adresă Livrare (Str, Nr, Oraș)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
-                        </div>
-                    </div>
-                    <button onclick="processPayment()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold transition shadow-lg flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-lock"></i> Plătește Securizat
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="toast" class="fixed bottom-6 right-6 bg-zinc-900 border border-amber-500/50 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-24 transition-transform duration-300 z-[100] flex items-center gap-4">
-        <div class="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center"><i class="fa-solid fa-check"></i></div>
-        <div>
-            <h4 class="font-bold text-sm">Adăugat în coș</h4>
-            <p id="toastMsg" class="text-xs text-gray-400">Produsul a fost adăugat.</p>
         </div>
     </div>
 
     <script>
-        // --- DATA ---
         const products = [
-            // Physical
-            { id: 1, name: "ONYX Smart Watch", price: 450, type: "physical", image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600&auto=format&fit=crop", desc: "Monitorizare puls, GPS." },
-            { id: 2, name: "Sony Headphones", price: 890, type: "physical", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop", desc: "Noise cancelling." },
-            { id: 4, name: "Luxury Wallet", price: 250, type: "physical", image: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600&auto=format&fit=crop", desc: "Piele naturală." },
-            { id: 6, name: "Tastatură Mecanică", price: 650, type: "physical", image: "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=600&auto=format&fit=crop", desc: "Gaming RGB." },
-            
-            // Digital
-            { id: 3, name: "Curs Foto Masterclass", price: 120, type: "digital", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop", desc: "Video 4K + PDF." },
-            { id: 5, name: "Lightroom Presets", price: 80, type: "digital", image: "https://images.unsplash.com/photo-1493863641943-9b68992a8d07?q=80&w=600&auto=format&fit=crop", desc: "Pack 50 filtre." },
-            { id: 7, name: "E-book: Crypto Start", price: 45, type: "digital", image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=600&auto=format&fit=crop", desc: "Ghid complet PDF." },
-            { id: 8, name: "Video Editing Assets", price: 200, type: "digital", image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600&auto=format&fit=crop", desc: "Tranziții & Efecte." },
-            { id: 9, name: "UI/UX Design Kit", price: 150, type: "digital", image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=600&auto=format&fit=crop", desc: "Figma & Sketch." }
+            { id: 1, name: "Ceas Onyx Gold", price: 1200, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600", type: "physical" },
+            { id: 2, name: "Căști Studio Black", price: 850, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600", type: "physical" },
+            { id: 3, name: "Portofel Piele", price: 250, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=600", type: "physical" },
+            { id: 4, name: "Ochelari Aviator", price: 450, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600", type: "physical" },
+            { id: 5, name: "Geantă Voiaj", price: 980, img: "https://images.unsplash.com/photo-1547949003-9792a18a2601?w=600", type: "physical" },
+            { id: 6, name: "Brățară Obsidian", price: 150, img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600", type: "physical" },
+            { id: 7, name: "Smart Hub Pro", price: 1100, img: "https://images.unsplash.com/photo-1558002038-1055907df827?w=600", type: "physical" },
+            { id: 8, name: "Boxă Portabilă", price: 600, img: "https://images.unsplash.com/photo-1608156639585-34a0a56ee6c9?w=600", type: "physical" },
+            // Digitale
+            { id: 9, name: "Curs Foto Masterclass", price: 190, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600", type: "digital" },
+            { id: 10, name: "E-book Succes Online", price: 49, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600", type: "digital" },
+            { id: 11, name: "Presets Lightroom Pro", price: 120, img: "https://images.unsplash.com/photo-1493863641943-9b68992a8d07?w=600", type: "digital" }
         ];
 
         let cart = [];
 
-        // --- INIT ---
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPhysicalProducts();
-            renderDigitalProducts();
-            updateCartUI();
-        });
-
-        // --- RENDER LOGIC ---
-        function renderPhysicalProducts() {
-            const grid = document.getElementById('physicalGrid');
-            const items = products.filter(p => p.type === 'physical');
-            grid.innerHTML = items.map(p => createCard(p)).join('');
-        }
-
-        function renderDigitalProducts() {
-            const grid = document.getElementById('digitalGrid');
-            const items = products.filter(p => p.type === 'digital');
-            grid.innerHTML = items.map(p => createDigitalCard(p)).join('');
-        }
-
-        // Standard Card (Physical)
-        function createCard(p) {
-            return `
-                <div class="group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-amber-600 transition-all duration-300 relative">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="${p.image}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500" alt="${p.name}">
-                        <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase text-white border border-white/10"><i class="fa-solid fa-box mr-1"></i> Fizic</div>
-                    </div>
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = products.filter(p => p.type === 'physical').map(p => `
+                <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-amber-500/50 transition duration-300">
+                    <img src="${p.img}" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <div class="flex justify-between items-start mb-2"><h3 class="text-lg font-bold text-white">${p.name}</h3><span class="text-amber-500 font-bold">${p.price} Lei</span></div>
-                        <p class="text-sm text-gray-500 mb-6">${p.desc}</p>
-                        <button onclick="addToCart(${p.id})" class="w-full bg-white text-black py-3 rounded-lg font-bold hover:bg-amber-500 hover:text-white transition flex items-center justify-center gap-2">Add to Cart</button>
+                        <h3 class="text-xl font-bold mb-2">${p.name}</h3>
+                        <p class="text-amber-500 font-bold mb-6">${p.price} RON</p>
+                        <button onclick="addToCart(${p.id})" class="w-full bg-white text-black py-3 rounded-xl font-bold hover:bg-amber-600 hover:text-white transition">Adaugă în coș</button>
                     </div>
-                </div>`;
+                </div>
+            `).join('');
+            
+            const dGrid = document.getElementById('digitalGrid');
+            dGrid.innerHTML = products.filter(p => p.type === 'digital').map(p => `
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl text-center">
+                    <i class="fa-solid fa-cloud-arrow-down text-4xl text-amber-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-2">${p.name}</h3>
+                    <p class="text-amber-500 font-bold mb-6">${p.price} RON</p>
+                    <button onclick="addToCart(${p.id})" class="w-full border border-amber-600 text-amber-500 py-3 rounded-xl font-bold hover:bg-amber-600 hover:text-white transition">Cumpără Acum</button>
+                </div>
+            `).join('');
         }
 
-        // Digital Card (Cyber/Tech look)
-        function createDigitalCard(p) {
-            return `
-                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-cyan-900/40 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 relative">
-                    <div class="h-48 overflow-hidden relative">
-                        <div class="absolute inset-0 bg-cyan-900/20 z-10"></div>
-                        <img src="${p.image}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition duration-500" alt="${p.name}">
-                        <div class="absolute top-3 right-3 bg-cyan-500 text-black px-3 py-1 rounded-md text-[10px] font-bold uppercase z-20"><i class="fa-solid fa-bolt"></i> Instant</div>
-                    </div>
-                    <div class="p-6 relative">
-                        <div class="flex justify-between items-center mb-2"><h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition">${p.name}</h3><span class="text-cyan-500 font-bold font-mono">${p.price} Lei</span></div>
-                        <p class="text-sm text-slate-400 mb-6">${p.desc}</p>
-                        <button onclick="addToCart(${p.id})" class="w-full border border-cyan-500 text-cyan-400 py-3 rounded-lg font-bold hover:bg-cyan-500 hover:text-black transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-download"></i> Download Access
-                        </button>
-                    </div>
-                </div>`;
-        }
-
-        // --- OVERLAY LOGIC ---
-        function openDigitalHub() {
-            const hub = document.getElementById('digitalHub');
-            hub.classList.add('slide-up-active');
-            document.body.style.overflow = 'hidden'; // Stop scroll on main page
-        }
-
-        function closeDigitalHub() {
-            const hub = document.getElementById('digitalHub');
-            hub.classList.remove('slide-up-active');
-            document.body.style.overflow = 'auto'; // Resume scroll
-        }
-
-        // --- CART LOGIC ---
         function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            cart.push(product);
-            updateCartUI();
-            showToast(product.name);
+            cart.push(products.find(p => p.id === id));
+            updateCart();
+            alert("Adăugat în coș!");
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartCount').innerText = cart.length;
-            document.getElementById('cartCount').style.opacity = cart.length > 0 ? '1' : '0';
-
+        function updateCart() {
             const list = document.getElementById('cartList');
             const totalEl = document.getElementById('cartTotal');
+            const countEl = document.getElementById('cartCount');
             
-            if (cart.length === 0) {
-                list.innerHTML = '';
-                document.getElementById('emptyCartMsg').classList.remove('hidden');
+            countEl.innerText = cart.length;
+            countEl.style.opacity = cart.length > 0 ? "1" : "0";
+            
+            list.innerHTML = cart.map((item, idx) => `
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-4">
+                    <div><p class="font-bold text-white">${item.name}</p><p class="text-amber-500 text-sm">${item.price} RON</p></div>
+                    <button onclick="cart.splice(${idx}, 1); updateCart()" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((acc, item) => acc + item.price, 0);
+            totalEl.innerText = `${total} RON`;
+        }
+
+        function toggleCartModal() { document.getElementById('cartModal').classList.toggle('hidden'); }
+        function openDigitalHub() { document.getElementById('digitalHub').classList.add('active'); }
+        function closeDigitalHub() { document.getElementById('digitalHub').classList.remove('active'); }
+
+        function handleCheckout() {
+            const form = document.getElementById('checkoutForm');
+            if(form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+                document.getElementById('checkoutBtn').innerText = "Confirmă și Plătește";
             } else {
-                document.getElementById('emptyCartMsg').classList.add('hidden');
-                list.innerHTML = cart.map((item, index) => `
-                    <div class="flex gap-4 bg-zinc-800/50 p-3 rounded-xl border border-zinc-700 items-center">
-                        <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-bold text-white">${item.name}</h4>
-                            <span class="text-xs ${item.type === 'digital' ? 'text-cyan-400' : 'text-amber-500'} uppercase font-bold">${item.type}</span>
-                        </div>
-                        <div class="text-right">
-                             <p class="text-white font-bold text-sm">${item.price} Lei</p>
-                             <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-red-500 text-xs mt-1">Șterge</button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            totalEl.innerText = `${total} Lei`;
-        }
-
-        // --- CHECKOUT LOGIC ---
-        function toggleCartModal() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.toggle('hidden');
-            if(modal.classList.contains('hidden')) {
-                document.getElementById('checkoutForm').classList.add('hidden');
-                document.getElementById('btnInitCheckout').classList.remove('hidden');
+                alert("Plata a fost procesată cu succes! Vei primi un email de confirmare.");
+                cart = [];
+                updateCart();
+                toggleCartModal();
+                form.classList.add('hidden');
             }
         }
 
-        function showCheckoutForm() {
-            if(cart.length === 0) return alert("Coș gol!");
-            
-            // Check content types
-            const hasPhysical = cart.some(p => p.type === 'physical');
-            
-            const shippingInputs = document.getElementById('shippingInputs');
-            const warning = document.getElementById('mixedCartWarning');
-            
-            if (!hasPhysical) {
-                // Digital Only
-                shippingInputs.classList.add('hidden'); // Hide address
-                warning.classList.add('hidden');
-            } else {
-                // Physical or Mixed
-                shippingInputs.classList.remove('hidden'); // Show address
-                if (cart.some(p => p.type === 'digital')) warning.classList.remove('hidden'); // Show warning if mixed
-            }
-
-            document.getElementById('btnInitCheckout').classList.add('hidden');
-            document.getElementById('checkoutForm').classList.remove('hidden');
-        }
-
-        function processPayment() {
-            const email = document.getElementById('emailInput').value;
-            if(!email) return alert("Te rugăm să introduci o adresă de email validă.");
-            
-            // Simulation
-            alert("Plată simulată cu succes! \nVerifică emailul (" + email + ") pentru confirmare și link-uri de download.");
-            cart = [];
-            updateCartUI();
-            toggleCartModal();
-            closeDigitalHub();
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.remove('translate-y-24');
-            setTimeout(() => toast.classList.add('translate-y-24'), 3000);
-        }
+        renderProducts();
     </script>
 </body>
 </html>
