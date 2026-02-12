@@ -24,161 +24,129 @@
         input, select, textarea { outline: none; transition: all 0.3s; }
         input:focus, select:focus, textarea:focus { border-color: #d97706; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1); }
         
+        /* Animations */
+        .slide-up-enter { transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .slide-up-active { transform: translateY(0); }
+        
         .product-card:hover .add-btn { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body class="bg-zinc-950 text-gray-200 antialiased">
+<body class="bg-zinc-950 text-gray-200 antialiased overflow-x-hidden">
 
     <nav class="fixed w-full z-40 top-0 left-0 glass shadow-sm border-b border-zinc-800">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3 hover:opacity-80 transition">
+            <a href="#" onclick="closeDigitalHub()" class="flex items-center gap-3 hover:opacity-80 transition">
                 <div class="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center text-white text-lg shadow-lg shadow-amber-900/20">
                     <i class="fa-solid fa-cube"></i>
                 </div>
                 <div class="leading-tight">
                     <h1 class="text-2xl font-display font-bold text-white tracking-tight">ONYX</h1>
-                    <span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest ml-0.5">Premium Store</span>
+                    <span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest ml-0.5">Physical Store</span>
                 </div>
             </a>
             
             <div class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-400">
-                <a href="#home" class="hover:text-amber-500 transition">Home</a>
-                <a href="#shop" class="hover:text-amber-500 transition">Produse</a>
-                <a href="#digital" class="hover:text-amber-500 transition">Digitale</a>
+                <a href="#home" onclick="closeDigitalHub()" class="hover:text-amber-500 transition">Acasă</a>
+                <a href="#shop" onclick="closeDigitalHub()" class="hover:text-amber-500 transition">Magazin Fizic</a>
                 
-                <button onclick="toggleCartModal()" class="relative group">
+                <button onclick="openDigitalHub()" class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2 border border-cyan-900/50 px-3 py-1 rounded-full bg-cyan-950/20">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Produse Digitale
+                </button>
+                
+                <button onclick="toggleCartModal()" class="relative group ml-4">
                     <div class="bg-zinc-900 text-white w-10 h-10 rounded-full flex items-center justify-center border border-zinc-700 hover:border-amber-500 transition shadow-lg">
                         <i class="fa-solid fa-cart-shopping group-hover:text-amber-500 transition"></i>
                     </div>
                     <span id="cartCount" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full opacity-0 transition-opacity duration-300">0</span>
                 </button>
             </div>
-
-            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-gray-300 p-2"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <header id="home" class="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1920&auto=format&fit=crop" 
-                 class="w-full h-full object-cover object-center opacity-40"
-                 alt="Premium Background">
-            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent"></div>
+    <div id="mainPageContent">
+        <header id="home" class="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1920&auto=format&fit=crop" 
+                     class="w-full h-full object-cover object-center opacity-30" alt="Store Background">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col items-center text-center">
+                <div class="inline-flex items-center gap-2 bg-amber-500/10 px-4 py-2 rounded-full mb-8 border border-amber-500/20">
+                    <i class="fa-solid fa-truck-fast text-amber-500 text-sm"></i>
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">Livrare prin Curier în 24h</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight max-w-4xl">
+                    Produse Fizice <br><span class="text-amber-600">Premium & Exclusive</span>.
+                </h1>
+                <p class="text-lg text-gray-400 mb-10 font-medium max-w-2xl mx-auto leading-relaxed">
+                    Accesorii, gadget-uri și piese de colecție. Comandă acum și primești coletul direct la ușa ta.
+                </p>
+                <a href="#shop" class="bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-white transition shadow-lg flex items-center gap-2">
+                    Vezi Colecția <i class="fa-solid fa-arrow-down"></i>
+                </a>
+            </div>
+        </header>
+
+        <section id="shop" class="py-24 bg-zinc-950 relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex items-end justify-between mb-12">
+                    <div>
+                        <span class="text-amber-600 font-bold tracking-wider uppercase text-sm">Pentru Tine</span>
+                        <h2 class="text-4xl font-display font-bold text-white mt-2">Magazin Fizic</h2>
+                    </div>
+                </div>
+                <div id="physicalGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="digitalHub" class="fixed inset-0 z-[45] bg-slate-950 slide-up-enter overflow-y-auto">
+        <div class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-cyan-900/30 px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-cyan-600 rounded-lg flex items-center justify-center text-white text-lg shadow-[0_0_15px_rgba(8,145,178,0.5)]">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-display font-bold text-white">ONYX <span class="text-cyan-400">Digital</span></h2>
+                    <span class="text-[10px] text-cyan-500 font-bold uppercase tracking-widest">Instant Download</span>
+                </div>
+            </div>
+            <button onclick="closeDigitalHub()" class="group flex items-center gap-2 text-gray-400 hover:text-white transition px-4 py-2 rounded-lg hover:bg-white/5">
+                <span class="text-sm font-medium">Înapoi la Fizic</span>
+                <i class="fa-solid fa-xmark text-xl group-hover:rotate-90 transition-transform"></i>
+            </button>
+        </div>
+
+        <div class="relative py-20 px-6 border-b border-cyan-900/20 overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+            <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500 rounded-full mix-blend-overlay filter blur-[100px] opacity-10"></div>
+            
+            <div class="max-w-7xl mx-auto relative z-10 text-center">
+                <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-4">Resurse <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Digitale</span></h1>
+                <p class="text-cyan-100/70 max-w-xl mx-auto">E-book-uri, Preset-uri, Cursuri și Software. Livrare instantanee pe email după confirmarea plății.</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div id="digitalGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
         </div>
         
-        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col items-center text-center">
-            <div class="inline-flex items-center gap-2 bg-amber-500/10 px-4 py-2 rounded-full mb-8 border border-amber-500/20 animate-fade-in-up">
-                <i class="fa-solid fa-bolt text-amber-500 text-sm"></i>
-                <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">Livrare Rapidă în 24h</span>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight max-w-4xl">
-                Exclusivitate <span class="text-amber-600">Digitală & Fizică</span>.
-            </h1>
-            
-            <p class="text-lg text-gray-400 mb-10 font-medium max-w-2xl mx-auto leading-relaxed">
-                Descoperă colecția noastră de accesorii premium și produse digitale. Livrare prin curier rapid pentru produsele fizice și acces instant pentru cele digitale.
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-4">
-                <a href="#shop" class="bg-amber-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-amber-700 transition shadow-lg hover:shadow-amber-500/20 flex items-center gap-2">
-                    Start Shopping <i class="fa-solid fa-arrow-right"></i>
-                </a>
-                <div class="flex items-center gap-4 px-6 py-4 rounded-xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
-                    <div class="flex -space-x-3">
-                        <img class="w-8 h-8 rounded-full border-2 border-zinc-900" src="https://i.pravatar.cc/100?img=1" alt="">
-                        <img class="w-8 h-8 rounded-full border-2 border-zinc-900" src="https://i.pravatar.cc/100?img=2" alt="">
-                        <img class="w-8 h-8 rounded-full border-2 border-zinc-900" src="https://i.pravatar.cc/100?img=3" alt="">
-                    </div>
-                    <span class="text-sm font-semibold text-gray-300">5k+ Clienți fericiți</span>
-                </div>
-            </div>
+        <div class="text-center py-10 text-gray-600 text-sm border-t border-gray-800 bg-slate-950">
+            <p>Platformă Securizată ONYX Digital. Toate fișierele sunt verificate.</p>
         </div>
-    </header>
+    </div>
 
-    <section id="shop" class="py-24 bg-zinc-950 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div>
-                    <span class="text-amber-600 font-bold tracking-wider uppercase text-sm">Colecția Nouă</span>
-                    <h2 class="text-4xl font-display font-bold text-white mt-2">Produse Disponibile</h2>
-                </div>
-                <div class="flex gap-2 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
-                    <button class="px-4 py-2 rounded-md bg-zinc-800 text-white text-sm font-medium shadow-sm">Toate</button>
-                    <button class="px-4 py-2 rounded-md text-gray-400 hover:text-white text-sm font-medium transition">Fizice</button>
-                    <button class="px-4 py-2 rounded-md text-gray-400 hover:text-white text-sm font-medium transition">Digitale</button>
-                </div>
-            </div>
-            
-            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                </div>
-        </div>
-    </section>
-
-    <section class="py-12 bg-zinc-900 border-y border-zinc-800">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div class="flex items-center gap-4 justify-center md:justify-start">
-                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-amber-500 text-xl"><i class="fa-solid fa-truck-fast"></i></div>
-                <div>
-                    <h4 class="font-bold text-white">Livrare Rapidă</h4>
-                    <p class="text-xs text-gray-400">Curierat Rapid (24-48h)</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-4 justify-center md:justify-start">
-                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-amber-500 text-xl"><i class="fa-solid fa-lock"></i></div>
-                <div>
-                    <h4 class="font-bold text-white">Plată Securizată</h4>
-                    <p class="text-xs text-gray-400">Card Online / Ramburs</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-4 justify-center md:justify-start">
-                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-amber-500 text-xl"><i class="fa-solid fa-cloud-arrow-down"></i></div>
-                <div>
-                    <h4 class="font-bold text-white">Produse Digitale</h4>
-                    <p class="text-xs text-gray-400">Livrare instant pe email</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-black text-gray-500 pt-20 pb-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 border-b border-zinc-800 pb-12 mb-12">
-                <div class="col-span-1">
-                    <h2 class="text-2xl font-bold text-white font-display mb-6">ONYX</h2>
-                    <p class="text-sm mb-6 leading-relaxed">Magazinul tău premium pentru gadget-uri smart, accesorii și conținut digital exclusiv.</p>
-                </div>
-                <div>
-                    <h3 class="text-white font-bold mb-6">Suport Clienti</h3>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="hover:text-amber-500 transition">Contact</a></li>
-                        <li><a href="#" class="hover:text-amber-500 transition">Politica de Retur</a></li>
-                        <li><a href="#" class="hover:text-amber-500 transition">Termeni și Condiții</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white font-bold mb-6">Metode de Plată</h3>
-                    <div class="flex gap-2 text-2xl">
-                        <i class="fa-brands fa-cc-visa text-gray-300"></i>
-                        <i class="fa-brands fa-cc-mastercard text-gray-300"></i>
-                        <i class="fa-brands fa-cc-paypal text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center text-xs"><p>&copy; 2026 ONYX Store. All rights reserved.</p></div>
-        </div>
-    </footer>
 
     <div id="cartModal" class="hidden fixed inset-0 z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="toggleCartModal()"></div>
-        
         <div class="fixed inset-y-0 right-0 z-10 w-full md:w-[500px] bg-zinc-900 shadow-2xl transform transition-transform border-l border-zinc-800 flex flex-col h-full">
-            
             <div class="px-6 py-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-900">
                 <h2 class="text-xl font-display font-bold text-white">Coșul Tău</h2>
                 <button onclick="toggleCartModal()" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-
             <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
                 <div id="emptyCartMsg" class="text-center py-12 hidden">
                     <i class="fa-solid fa-basket-shopping text-4xl text-zinc-700 mb-4"></i>
@@ -186,142 +154,126 @@
                 </div>
                 <div id="cartList" class="space-y-4"></div>
             </div>
-
             <div class="border-t border-zinc-800 bg-zinc-900 p-6">
-                
                 <div class="flex justify-between items-center mb-6 text-lg font-bold text-white">
                     <span>Total de plată:</span>
                     <span id="cartTotal" class="text-amber-500">0 RON</span>
                 </div>
-
-                <button id="btnInitCheckout" onclick="showCheckoutForm()" class="w-full bg-amber-600 text-white py-4 rounded-xl font-bold hover:bg-amber-700 transition shadow-lg mb-2">
+                <button id="btnInitCheckout" onclick="showCheckoutForm()" class="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-gray-200 transition shadow-lg mb-2">
                     Continuă spre Plată
                 </button>
-
                 <div id="checkoutForm" class="hidden animate-fade-in space-y-4 mt-4 border-t border-zinc-800 pt-4">
-                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Detalii Livrare & Plată</h3>
-                    
+                    <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg mb-4 hidden" id="mixedCartWarning">
+                        <p class="text-xs text-amber-200"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Ai produse fizice în coș. Este necesară adresa de livrare.</p>
+                    </div>
                     <div class="space-y-3">
-                        <input type="text" placeholder="Nume Complet" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
-                        <input type="text" placeholder="Adresă Livrare (Str, Nr, Oraș)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
-                        <input type="email" placeholder="Email (pentru confirmare)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
-                    </div>
-
-                    <div class="bg-zinc-800 p-4 rounded-lg border border-zinc-700 relative overflow-hidden">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-sm font-bold text-gray-300"><i class="fa-solid fa-lock mr-2 text-green-500"></i>Plată Card Securizată</span>
-                            <div class="flex gap-2 text-gray-400"><i class="fa-brands fa-cc-visa"></i> <i class="fa-brands fa-cc-mastercard"></i></div>
-                        </div>
-                        <input type="text" placeholder="0000 0000 0000 0000" class="w-full bg-zinc-900 border border-zinc-700 rounded-md p-2 mb-3 text-white font-mono text-sm">
-                        <div class="flex gap-3">
-                            <input type="text" placeholder="MM/YY" class="w-1/2 bg-zinc-900 border border-zinc-700 rounded-md p-2 text-white font-mono text-sm">
-                            <input type="text" placeholder="CVC" class="w-1/2 bg-zinc-900 border border-zinc-700 rounded-md p-2 text-white font-mono text-sm">
+                        <input type="email" id="emailInput" placeholder="Email (pentru livrare digitală/confirmare)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
+                        <div id="shippingInputs">
+                            <input type="text" placeholder="Nume Complet" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500 mb-3">
+                            <input type="text" placeholder="Adresă Livrare (Str, Nr, Oraș)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-amber-500">
                         </div>
                     </div>
-
                     <button onclick="processPayment()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold transition shadow-lg flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-lock"></i> Plătește <span id="payAmount"></span>
+                        <i class="fa-solid fa-lock"></i> Plătește Securizat
                     </button>
-                    <p class="text-[10px] text-gray-500 text-center mt-2">*Aceasta este o simulare. Nu introduceți date reale de card.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="fixed bottom-6 right-6 bg-zinc-900 border border-amber-500/50 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-24 transition-transform duration-300 z-50 flex items-center gap-4">
+    <div id="toast" class="fixed bottom-6 right-6 bg-zinc-900 border border-amber-500/50 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-24 transition-transform duration-300 z-[100] flex items-center gap-4">
         <div class="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center"><i class="fa-solid fa-check"></i></div>
         <div>
             <h4 class="font-bold text-sm">Adăugat în coș</h4>
-            <p id="toastMsg" class="text-xs text-gray-400">Produsul a fost adăugat cu succes.</p>
+            <p id="toastMsg" class="text-xs text-gray-400">Produsul a fost adăugat.</p>
         </div>
     </div>
 
     <script>
-        // --- DATA: Products Database ---
+        // --- DATA ---
         const products = [
-            {
-                id: 1,
-                name: "ONYX Smart Watch Pro",
-                price: 450,
-                type: "physical",
-                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop",
-                desc: "Monitorizare sănătate, GPS, baterie 7 zile. Livrare curier."
-            },
-            {
-                id: 2,
-                name: "Sony Wireless Noise Cancelling",
-                price: 890,
-                type: "physical",
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop",
-                desc: "Sunet premium, anulare zgomot activă. Livrare curier."
-            },
-            {
-                id: 3,
-                name: "Curs Foto Masterclass (E-book)",
-                price: 120,
-                type: "digital",
-                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop",
-                desc: "Format PDF + Video. Livrare instant pe email."
-            },
-            {
-                id: 4,
-                name: "Luxury Leather Wallet",
-                price: 250,
-                type: "physical",
-                image: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600&auto=format&fit=crop",
-                desc: "Piele naturală, lucrat manual. Cutie cadou inclusă."
-            },
-            {
-                id: 5,
-                name: "Preset-uri Lightroom (Pack)",
-                price: 80,
-                type: "digital",
-                image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-                desc: "15 filtre profesionale pentru editare foto."
-            },
-            {
-                id: 6,
-                name: "Tastatură Mecanică Custom",
-                price: 650,
-                type: "physical",
-                image: "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=600&auto=format&fit=crop",
-                desc: "Switch-uri roșii, iluminare RGB. Livrare curier."
-            }
+            // Physical
+            { id: 1, name: "ONYX Smart Watch", price: 450, type: "physical", image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600&auto=format&fit=crop", desc: "Monitorizare puls, GPS." },
+            { id: 2, name: "Sony Headphones", price: 890, type: "physical", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop", desc: "Noise cancelling." },
+            { id: 4, name: "Luxury Wallet", price: 250, type: "physical", image: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600&auto=format&fit=crop", desc: "Piele naturală." },
+            { id: 6, name: "Tastatură Mecanică", price: 650, type: "physical", image: "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=600&auto=format&fit=crop", desc: "Gaming RGB." },
+            
+            // Digital
+            { id: 3, name: "Curs Foto Masterclass", price: 120, type: "digital", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop", desc: "Video 4K + PDF." },
+            { id: 5, name: "Lightroom Presets", price: 80, type: "digital", image: "https://images.unsplash.com/photo-1493863641943-9b68992a8d07?q=80&w=600&auto=format&fit=crop", desc: "Pack 50 filtre." },
+            { id: 7, name: "E-book: Crypto Start", price: 45, type: "digital", image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=600&auto=format&fit=crop", desc: "Ghid complet PDF." },
+            { id: 8, name: "Video Editing Assets", price: 200, type: "digital", image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600&auto=format&fit=crop", desc: "Tranziții & Efecte." },
+            { id: 9, name: "UI/UX Design Kit", price: 150, type: "digital", image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=600&auto=format&fit=crop", desc: "Figma & Sketch." }
         ];
 
-        // --- APP STATE ---
         let cart = [];
 
         // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
-            renderProducts();
+            renderPhysicalProducts();
+            renderDigitalProducts();
             updateCartUI();
         });
 
-        // --- RENDER FUNCTIONS ---
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = products.map(product => `
-                <div class="product-card group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-amber-600 transition-all duration-300 relative">
+        // --- RENDER LOGIC ---
+        function renderPhysicalProducts() {
+            const grid = document.getElementById('physicalGrid');
+            const items = products.filter(p => p.type === 'physical');
+            grid.innerHTML = items.map(p => createCard(p)).join('');
+        }
+
+        function renderDigitalProducts() {
+            const grid = document.getElementById('digitalGrid');
+            const items = products.filter(p => p.type === 'digital');
+            grid.innerHTML = items.map(p => createDigitalCard(p)).join('');
+        }
+
+        // Standard Card (Physical)
+        function createCard(p) {
+            return `
+                <div class="group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-amber-600 transition-all duration-300 relative">
                     <div class="h-64 overflow-hidden relative">
-                        <img src="${product.image}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500" alt="${product.name}">
-                        <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide text-white border border-white/10">
-                            ${product.type === 'physical' ? '<i class="fa-solid fa-box mr-1"></i> Fizic' : '<i class="fa-solid fa-download mr-1 text-amber-500"></i> Digital'}
-                        </div>
+                        <img src="${p.image}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500" alt="${p.name}">
+                        <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase text-white border border-white/10"><i class="fa-solid fa-box mr-1"></i> Fizic</div>
                     </div>
                     <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold text-white leading-tight">${product.name}</h3>
-                            <span class="text-amber-500 font-bold">${product.price} RON</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">${product.desc}</p>
-                        
-                        <button onclick="addToCart(${product.id})" class="w-full bg-white text-black py-3 rounded-lg font-bold hover:bg-amber-500 hover:text-white transition flex items-center justify-center gap-2">
-                            Add to Cart <i class="fa-solid fa-plus"></i>
+                        <div class="flex justify-between items-start mb-2"><h3 class="text-lg font-bold text-white">${p.name}</h3><span class="text-amber-500 font-bold">${p.price} Lei</span></div>
+                        <p class="text-sm text-gray-500 mb-6">${p.desc}</p>
+                        <button onclick="addToCart(${p.id})" class="w-full bg-white text-black py-3 rounded-lg font-bold hover:bg-amber-500 hover:text-white transition flex items-center justify-center gap-2">Add to Cart</button>
+                    </div>
+                </div>`;
+        }
+
+        // Digital Card (Cyber/Tech look)
+        function createDigitalCard(p) {
+            return `
+                <div class="group bg-slate-900 rounded-xl overflow-hidden border border-cyan-900/40 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 relative">
+                    <div class="h-48 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-cyan-900/20 z-10"></div>
+                        <img src="${p.image}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition duration-500" alt="${p.name}">
+                        <div class="absolute top-3 right-3 bg-cyan-500 text-black px-3 py-1 rounded-md text-[10px] font-bold uppercase z-20"><i class="fa-solid fa-bolt"></i> Instant</div>
+                    </div>
+                    <div class="p-6 relative">
+                        <div class="flex justify-between items-center mb-2"><h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition">${p.name}</h3><span class="text-cyan-500 font-bold font-mono">${p.price} Lei</span></div>
+                        <p class="text-sm text-slate-400 mb-6">${p.desc}</p>
+                        <button onclick="addToCart(${p.id})" class="w-full border border-cyan-500 text-cyan-400 py-3 rounded-lg font-bold hover:bg-cyan-500 hover:text-black transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-download"></i> Download Access
                         </button>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+        }
+
+        // --- OVERLAY LOGIC ---
+        function openDigitalHub() {
+            const hub = document.getElementById('digitalHub');
+            hub.classList.add('slide-up-active');
+            document.body.style.overflow = 'hidden'; // Stop scroll on main page
+        }
+
+        function closeDigitalHub() {
+            const hub = document.getElementById('digitalHub');
+            hub.classList.remove('slide-up-active');
+            document.body.style.overflow = 'auto'; // Resume scroll
         }
 
         // --- CART LOGIC ---
@@ -329,7 +281,7 @@
             const product = products.find(p => p.id === id);
             cart.push(product);
             updateCartUI();
-            showToast(`${product.name}`);
+            showToast(product.name);
         }
 
         function removeFromCart(index) {
@@ -338,50 +290,40 @@
         }
 
         function updateCartUI() {
-            // Update Badge
-            const badge = document.getElementById('cartCount');
-            badge.innerText = cart.length;
-            badge.style.opacity = cart.length > 0 ? '1' : '0';
+            document.getElementById('cartCount').innerText = cart.length;
+            document.getElementById('cartCount').style.opacity = cart.length > 0 ? '1' : '0';
 
-            // Update List
             const list = document.getElementById('cartList');
-            const emptyMsg = document.getElementById('emptyCartMsg');
             const totalEl = document.getElementById('cartTotal');
-            const payBtnAmount = document.getElementById('payAmount');
-
+            
             if (cart.length === 0) {
                 list.innerHTML = '';
-                emptyMsg.classList.remove('hidden');
+                document.getElementById('emptyCartMsg').classList.remove('hidden');
             } else {
-                emptyMsg.classList.add('hidden');
+                document.getElementById('emptyCartMsg').classList.add('hidden');
                 list.innerHTML = cart.map((item, index) => `
                     <div class="flex gap-4 bg-zinc-800/50 p-3 rounded-xl border border-zinc-700 items-center">
-                        <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover">
+                        <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover">
                         <div class="flex-1">
                             <h4 class="text-sm font-bold text-white">${item.name}</h4>
-                            <p class="text-xs text-gray-400 capitalize">${item.type}</p>
-                            <span class="text-amber-500 text-sm font-bold">${item.price} RON</span>
+                            <span class="text-xs ${item.type === 'digital' ? 'text-cyan-400' : 'text-amber-500'} uppercase font-bold">${item.type}</span>
                         </div>
-                        <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-red-500 transition p-2">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
+                        <div class="text-right">
+                             <p class="text-white font-bold text-sm">${item.price} Lei</p>
+                             <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-red-500 text-xs mt-1">Șterge</button>
+                        </div>
                     </div>
                 `).join('');
             }
-
-            // Calculate Total
+            
             const total = cart.reduce((sum, item) => sum + item.price, 0);
-            totalEl.innerText = `${total} RON`;
-            if(payBtnAmount) payBtnAmount.innerText = `${total} RON`;
+            totalEl.innerText = `${total} Lei`;
         }
 
-        // --- UI TRIGGERS ---
+        // --- CHECKOUT LOGIC ---
         function toggleCartModal() {
             const modal = document.getElementById('cartModal');
             modal.classList.toggle('hidden');
-            document.body.style.overflow = modal.classList.contains('hidden') ? 'auto' : 'hidden';
-            
-            // Reset checkout view if closed
             if(modal.classList.contains('hidden')) {
                 document.getElementById('checkoutForm').classList.add('hidden');
                 document.getElementById('btnInitCheckout').classList.remove('hidden');
@@ -389,45 +331,45 @@
         }
 
         function showCheckoutForm() {
-            if(cart.length === 0) return alert("Coșul este gol!");
+            if(cart.length === 0) return alert("Coș gol!");
+            
+            // Check content types
+            const hasPhysical = cart.some(p => p.type === 'physical');
+            
+            const shippingInputs = document.getElementById('shippingInputs');
+            const warning = document.getElementById('mixedCartWarning');
+            
+            if (!hasPhysical) {
+                // Digital Only
+                shippingInputs.classList.add('hidden'); // Hide address
+                warning.classList.add('hidden');
+            } else {
+                // Physical or Mixed
+                shippingInputs.classList.remove('hidden'); // Show address
+                if (cart.some(p => p.type === 'digital')) warning.classList.remove('hidden'); // Show warning if mixed
+            }
+
             document.getElementById('btnInitCheckout').classList.add('hidden');
             document.getElementById('checkoutForm').classList.remove('hidden');
         }
 
         function processPayment() {
-            const btn = document.querySelector('#checkoutForm button');
-            const originalText = btn.innerHTML;
+            const email = document.getElementById('emailInput').value;
+            if(!email) return alert("Te rugăm să introduci o adresă de email validă.");
             
-            // 1. Loading State
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Procesare...';
-            btn.disabled = true;
-
-            // 2. Simulate Delay
-            setTimeout(() => {
-                // 3. Success
-                cart = [];
-                updateCartUI();
-                toggleCartModal();
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                
-                alert("Plată acceptată! 🎉\nMulțumim pentru comandă. Vei primi confirmarea pe email.");
-            }, 2000);
+            // Simulation
+            alert("Plată simulată cu succes! \nVerifică emailul (" + email + ") pentru confirmare și link-uri de download.");
+            cart = [];
+            updateCartUI();
+            toggleCartModal();
+            closeDigitalHub();
         }
 
-        function showToast(productName) {
+        function showToast(msg) {
             const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = `${productName}`;
-            toast.classList.remove('translate-y-24'); // Show
-            
-            setTimeout(() => {
-                toast.classList.add('translate-y-24'); // Hide
-            }, 3000);
-        }
-
-        function toggleMobileMenu() {
-            // Simple alert for mobile menu in this demo version
-            alert("Meniul mobil ar conține aceleași linkuri ca header-ul.");
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-24');
+            setTimeout(() => toast.classList.add('translate-y-24'), 3000);
         }
     </script>
 </body>
